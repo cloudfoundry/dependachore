@@ -3,10 +3,24 @@ package tracker_test
 import (
 	"dependachore/tracker"
 	"os"
+	"strconv"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
+
+func getEnv(key string) string {
+	val := os.Getenv(key)
+	Expect(val).ToNot(BeEmpty())
+	return val
+}
+
+func getEnvInt(key string) int {
+	strval := getEnv(key)
+	intval, err := strconv.Atoi(strval)
+	Expect(err).NotTo(HaveOccurred())
+	return intval
+}
 
 var _ = Describe("Tracker", func() {
 	var (
@@ -14,8 +28,8 @@ var _ = Describe("Tracker", func() {
 	)
 
 	BeforeEach(func() {
-		apiKey := os.Getenv("API_KEY")
-		projectID := 2416377
+		apiKey := getEnv("API_KEY")
+		projectID := getEnvInt("PROJECT_ID")
 		client = tracker.NewClient(apiKey, projectID)
 	})
 
