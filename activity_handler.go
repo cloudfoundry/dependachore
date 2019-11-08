@@ -1,6 +1,7 @@
 package dependachore
 
 import (
+	"dependachore/tracker"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -22,16 +23,7 @@ type PrimaryResource struct {
 }
 
 type Change struct {
-	NewValues Story `json:"new_values"`
-}
-
-type Story struct {
-	Description   string `json:"description"`
-	RequestedByID int    `json:"requested_by_id"`
-	StoryType     string `json:"story_type"`
-	BeforeID      int    `json:"before_id"`
-	AfterID       int    `json:"after_id"`
-	ID            int    `json:"id"`
+	NewValues tracker.Story `json:"new_values"`
 }
 
 type Performer struct {

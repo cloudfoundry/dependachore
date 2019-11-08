@@ -10,51 +10,86 @@ import (
 
 var _ = Describe("Tracker", func() {
 	var (
-		storyID int
-		client  *tracker.Client
+		client *tracker.Client
 	)
 
 	BeforeEach(func() {
-		storyID = 169623658
 		apiKey := os.Getenv("API_KEY")
-		projectID := 1158420
+		projectID := 2416377
 		client = tracker.NewClient(apiKey, projectID)
 	})
 
 	Describe("retrieving a story", func() {
+		var story tracker.Story
+
+		BeforeEach(func() {
+			var err error
+			story, err = client.CreateFeature("my name", "my description")
+			Expect(err).NotTo(HaveOccurred())
+		})
+
+		AfterEach(func() {
+			Expect(client.Delete(story.ID)).To(Succeed())
+		})
+
 		It("can get a story by ID", func() {
-			story, err := client.Get(storyID)
+			story, err := client.Get(story.ID)
+
 			Expect(err).NotTo(HaveOccurred())
-			Expect(story.Description).To(ContainSubstring("garden-shed"))
+			Expect(story.Description).To(Equal("my description"))
 		})
 	})
 
-	Describe("Chorify", func() {
-		It("can transform story into chore", func() {
-			err := client.Chorify(storyID)
+	Describe("creating a story", func() {
+		var story tracker.Story
+
+		AfterEach(func() {
+			Expect(client.Delete(story.ID)).To(Succeed())
+		})
+
+		It("can create a feature", func() {
+			var err error
+
+			story, err = client.CreateFeature("my name", "my description")
 			Expect(err).NotTo(HaveOccurred())
 
-			story, err := client.Get(storyID)
+			retrievedStory, err := client.Get(story.ID)
 			Expect(err).NotTo(HaveOccurred())
-			Expect(story.StoryType).To(Equal("chore"))
+
+			Expect(retrievedStory.Name).To(Equal(story.Name))
+			Expect(retrievedStory.Description).To(Equal(story.Description))
 		})
 	})
 
-	Describe("Move it after", func() {
-		releaseID := 169626389
+	Describe("Move and Chorify", func() {
+		var feature, release tracker.Story
+
+		BeforeEach(func() {
+			var err error
+			release, err = client.CreateRelease("my release", "my release description")
+			Expect(err).NotTo(HaveOccurred())
+			feature, err = client.CreateFeature("my feature", "my feature description")
+			Expect(err).NotTo(HaveOccurred())
+		})
+
+		AfterEach(func() {
+			Expect(client.Delete(release.ID)).To(Succeed())
+			Expect(client.Delete(feature.ID)).To(Succeed())
+		})
 
 		It("moves it after the release marker", func() {
-			Expect(client.MoveAfter(storyID, releaseID)).To(Succeed())
-			release, err := client.Get(releaseID)
-			Expect(err).NotTo(HaveOccurred())
+			var err error
 
-			Expect(release.BeforeID).To(Equal(storyID))
+			Expect(client.MoveAndChorify(feature.ID, release.ID)).To(Succeed())
 
-			story, err := client.Get(storyID)
+			feature, err = client.Get(feature.ID)
 			Expect(err).NotTo(HaveOccurred())
-			Expect(story.AfterID).To(Equal(releaseID))
+			Expect(feature.StoryType).To(Equal("chore"))
+			Expect(feature.AfterID).To(Equal(release.ID))
+
+			release, err = client.Get(release.ID)
+			Expect(err).NotTo(HaveOccurred())
+			Expect(release.BeforeID).To(Equal(feature.ID))
 		})
-
 	})
-
 })
