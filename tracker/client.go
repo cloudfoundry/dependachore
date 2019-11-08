@@ -16,13 +16,13 @@ type Client struct {
 }
 
 type Story struct {
+	ID            int    `json:"id"`
 	Name          string `json:"name"`
 	Description   string `json:"description"`
 	RequestedByID int    `json:"requested_by_id"`
 	StoryType     string `json:"story_type"`
 	BeforeID      int    `json:"before_id"`
 	AfterID       int    `json:"after_id"`
-	ID            int    `json:"id"`
 }
 
 func NewClient(apiKey string, projectID int) *Client {

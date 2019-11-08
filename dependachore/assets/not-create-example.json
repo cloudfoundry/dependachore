@@ -1,0 +1,142 @@
+{
+  "kind": "story_update_activity",
+  "guid": "1158420_75194",
+  "project_version": 75194,
+  "message": "CF Gitbot added this feature",
+  "highlight": "added",
+  "changes": [
+    {
+      "kind": "label",
+      "change_type": "update",
+      "id": 15855441,
+      "original_values": {
+        "counts": {
+          "number_of_zero_point_stories_by_state": {
+            "accepted": 96,
+            "started": 0,
+            "finished": 0,
+            "unstarted": 0,
+            "planned": 0,
+            "delivered": 0,
+            "unscheduled": 9,
+            "rejected": 0,
+            "kind": "counts_by_story_state"
+          },
+          "sum_of_story_estimates_by_state": {
+            "accepted": 61,
+            "started": 0,
+            "finished": 0,
+            "unstarted": 0,
+            "planned": 0,
+            "delivered": 0,
+            "unscheduled": 0,
+            "rejected": 0,
+            "kind": "counts_by_story_state"
+          },
+          "number_of_stories_by_state": {
+            "accepted": 156,
+            "started": 0,
+            "finished": 0,
+            "unstarted": 0,
+            "planned": 0,
+            "delivered": 0,
+            "unscheduled": 9,
+            "rejected": 0,
+            "kind": "counts_by_story_state"
+          },
+          "kind": "story_counts"
+        }
+      },
+      "new_values": {
+        "counts": {
+          "number_of_zero_point_stories_by_state": {
+            "accepted": 96,
+            "started": 0,
+            "finished": 0,
+            "unstarted": 0,
+            "planned": 0,
+            "delivered": 0,
+            "unscheduled": 10,
+            "rejected": 0,
+            "kind": "counts_by_story_state"
+          },
+          "sum_of_story_estimates_by_state": {
+            "accepted": 61,
+            "started": 0,
+            "finished": 0,
+            "unstarted": 0,
+            "planned": 0,
+            "delivered": 0,
+            "unscheduled": 0,
+            "rejected": 0,
+            "kind": "counts_by_story_state"
+          },
+          "number_of_stories_by_state": {
+            "accepted": 156,
+            "started": 0,
+            "finished": 0,
+            "unstarted": 0,
+            "planned": 0,
+            "delivered": 0,
+            "unscheduled": 10,
+            "rejected": 0,
+            "kind": "counts_by_story_state"
+          },
+          "kind": "story_counts"
+        }
+      },
+      "name": "github-pull-request"
+    },
+    {
+      "kind": "story",
+      "change_type": "update",
+      "id": 169649127,
+      "new_values": {
+        "id": 169649127,
+        "project_id": 1158420,
+        "name": "cloudfoundry/garden-shed #10: Update README.md",
+        "description": "[Github Pull Request #10](https://github.com/cloudfoundry/garden-shed/pull/10)\n\nFiled by [@dependabot-preview[bot]](http://github.com/dependabot-preview[bot])",
+        "story_type": "feature",
+        "current_state": "unscheduled",
+        "requested_by_id": 1134058,
+        "owner_ids": [],
+        "label_ids": [
+          15855441
+        ],
+        "follower_ids": [],
+        "created_at": 1573224782000,
+        "updated_at": 1573224782000,
+        "before_id": 169573796,
+        "after_id": 155180036,
+        "blocked_story_ids": [],
+        "labels": [
+          "github-pull-request"
+        ]
+      },
+      "name": "cloudfoundry/garden-shed #10: Update README.md",
+      "story_type": "feature"
+    }
+  ],
+  "primary_resources": [
+    {
+      "kind": "story",
+      "id": 169649127,
+      "name": "cloudfoundry/garden-shed #10: Update README.md",
+      "story_type": "feature",
+      "url": "https://www.pivotaltracker.com/story/show/169649127"
+    }
+  ],
+  "secondary_resources": [],
+  "project": {
+    "kind": "project",
+    "id": 1158420,
+    "name": "CF Garden Public"
+  },
+  "performed_by": {
+    "kind": "person",
+    "id": 1134058,
+    "name": "CF Gitbot",
+    "initials": "CG"
+  },
+  "occurred_at": 1573224782000
+}
