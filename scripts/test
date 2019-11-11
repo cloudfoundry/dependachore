@@ -1,0 +1,55 @@
+#!/bin/bash
+
+set -e
+
+export API_KEY
+API_KEY=$(lpass show --notes 'Shared-Garden/CF Garden Gnome Tracker bot')
+export PROJECT_ID=2416377
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+RED=1
+GREEN=2
+
+print_message() {
+  message=$1
+  colour=$2
+  printf "\\r\\033[00;3%sm%s\\033[0m\\n" "$colour" "$message"
+}
+
+usage() {
+  colour=$1
+  usage=$(cat <<'EOF'
+Usage:
+    test -a           --- run all tests on Concourse
+    test <directory>  --- run tests from a given directory locally
+    test -h           --- show this help message
+EOF
+)
+  print_message "$usage" "$colour"
+}
+
+run_all_on_concourse() {
+  "$DIR/remote-fly" ci/run-tests.yml
+}
+
+while getopts "ah" OPTION; do
+  case $OPTION in
+    a)
+      run_all_on_concourse
+     exit
+     ;;
+    h)
+      usage $GREEN
+    exit
+    ;;
+    *)
+      usage $RED
+    exit
+    ;;
+ esac
+done
+
+shift $((OPTIND-1))
+
+ginkgo -mod vendor -randomizeAllSpecs -randomizeSuites -race -keepGoing -r $@

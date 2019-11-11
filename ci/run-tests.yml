@@ -1,0 +1,18 @@
+---
+image_resource:
+  type: registry-image
+  source:
+    repository: cfgarden/garden-ci
+    tag: '2.0.24'
+
+platform: linux
+
+inputs:
+- name: dependachore
+
+params:
+  API_KEY:
+  PROJECT_ID:
+
+run:
+  path: dependachore/ci/run-tests.sh
