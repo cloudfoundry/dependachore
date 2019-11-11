@@ -1,0 +1,20 @@
+---
+image_resource:
+  type: registry-image
+  source:
+    repository: google/cloud-sdk
+    tag: latest
+
+platform: linux
+
+inputs:
+- name: dependachore
+
+params:
+  GCP_SERVICE_ACCOUNT_JSON:
+  API_KEY:
+  PROJECT_ID:
+  RELEASE_MARKER_ID:
+
+run:
+  path: dependachore/ci/deploy-cloud-function.sh
