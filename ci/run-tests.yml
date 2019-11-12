@@ -13,6 +13,7 @@ inputs:
 params:
   API_KEY:
   PROJECT_ID:
+  GOOGLE_APPLICATION_CREDENTIALS_JSON:
 
 run:
   path: dependachore/ci/run-tests.sh

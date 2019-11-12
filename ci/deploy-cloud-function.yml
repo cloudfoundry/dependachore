@@ -12,9 +12,13 @@ inputs:
 
 params:
   GCP_SERVICE_ACCOUNT_JSON:
-  API_KEY:
   PROJECT_ID:
   RELEASE_MARKER_ID:
+  ENC_PROJECT: cf-garden-core
+  ENC_LOCATION: global
+  ENC_KEYRING: garden
+  ENC_KEY: dependachore
+  API_KEY:
 
 run:
   path: dependachore/ci/deploy-cloud-function.sh

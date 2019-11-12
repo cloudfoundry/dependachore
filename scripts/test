@@ -2,11 +2,17 @@
 
 set -e
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
 export API_KEY
 API_KEY=$(lpass show --notes 'Shared-Garden/CF Garden Gnome Tracker bot')
 export PROJECT_ID=2416377
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+export GOOGLE_APPLICATION_CREDENTIALS="$DIR/kms_test.json"
+lpass show --notes 'Shared-Garden/GCP KMS Test Service Account' > "$GOOGLE_APPLICATION_CREDENTIALS"
+
+export GOOGLE_APPLICATION_CREDENTIALS_JSON
+GOOGLE_APPLICATION_CREDENTIALS_JSON="$(<"$GOOGLE_APPLICATION_CREDENTIALS")"
 
 RED=1
 GREEN=2

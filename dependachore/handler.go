@@ -56,7 +56,10 @@ func (h Handler) Handle(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if storyID, isDependabotActivity := extractStoryIDFromDependabotActivity(activity); isDependabotActivity {
-		_ = h.trackerClient.MoveAndChorify(storyID, h.releaseMarkerID)
+		err = h.trackerClient.MoveAndChorify(storyID, h.releaseMarkerID)
+		if err != nil {
+			writeError(w, http.StatusInternalServerError, "failed to move/chorify story: %v\n", err)
+		}
 	}
 }
 
@@ -81,4 +84,3 @@ func extractStoryIDFromDependabotActivity(activity TrackerActivity) (int, bool) 
 
 	return 0, false
 }
-
