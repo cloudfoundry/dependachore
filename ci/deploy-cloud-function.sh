@@ -24,4 +24,5 @@ gcloud functions deploy AskDependachore \
   --memory 128M \
   --trigger-http \
   --project cf-garden-core \
+  --service-account dependachore-runner@cf-garden-core.iam.gserviceaccount.com \
   --set-env-vars PROJECT_ID="$PROJECT_ID",RELEASE_MARKER_ID="$RELEASE_MARKER_ID",ENC_PROJECT="$ENC_PROJECT",ENC_LOCATION="$ENC_LOCATION",ENC_KEYRING="$ENC_KEYRING",ENC_KEY="$ENC_KEY",ENC_API_KEY="$ENC_API_KEY"
