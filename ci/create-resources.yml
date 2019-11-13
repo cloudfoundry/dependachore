@@ -1,0 +1,17 @@
+---
+image_resource:
+  type: registry-image
+  source:
+    repository: hashicorp/terraform
+    tag: latest
+
+platform: linux
+
+inputs:
+- name: dependachore
+
+params:
+  GCP_SERVICE_ACCOUNT_JSON:
+
+run:
+  path: dependachore/ci/deploy-cloud-function.sh
