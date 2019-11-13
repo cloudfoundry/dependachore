@@ -8,11 +8,16 @@ export API_KEY
 API_KEY=$(lpass show --notes 'Shared-Garden/CF Garden Gnome Tracker bot')
 export PROJECT_ID=2416377
 
-export GOOGLE_APPLICATION_CREDENTIALS="$DIR/kms_test.json"
-lpass show --notes 'Shared-Garden/GCP KMS Test Service Account' > "$GOOGLE_APPLICATION_CREDENTIALS"
+pushd "$DIR/../ci/terraform" > /dev/null
+if [ ! -d .terraform ]; then
+  terraform init
+fi
+GOOGLE_APPLICATION_CREDENTIALS_JSON=$(terraform output kms-test-service-account-key)
+popd > /dev/null
 
+export GOOGLE_APPLICATION_CREDENTIALS="$DIR/kms_test.json"
+echo "$GOOGLE_APPLICATION_CREDENTIALS_JSON" > "$GOOGLE_APPLICATION_CREDENTIALS"
 export GOOGLE_APPLICATION_CREDENTIALS_JSON
-GOOGLE_APPLICATION_CREDENTIALS_JSON="$(<"$GOOGLE_APPLICATION_CREDENTIALS")"
 
 RED=1
 GREEN=2
