@@ -5,6 +5,12 @@ set -eu
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 task=${1}
 
+extra_inputs=""
+if [[ "$task" == *"run-tests.yml" ]]; then
+  extra_inputs=" -i service-account-json=$DIR/.."
+fi
+
 fly -t "$GARDEN_REMOTE_ATC_URL" execute \
   -c "$DIR/../$task" \
-  -i dependachore="$DIR/.."
+  -i dependachore="$DIR/.." \
+  $extra_inputs

@@ -8,16 +8,13 @@ export API_KEY
 API_KEY=$(lpass show --notes 'Shared-Garden/CF Garden Gnome Tracker bot')
 export PROJECT_ID=2416377
 
+kms_test_file="$DIR/../kms-test.json"
 pushd "$DIR/../ci/terraform" > /dev/null
-if [ ! -d .terraform ]; then
-  terraform init
-fi
-GOOGLE_APPLICATION_CREDENTIALS_JSON=$(terraform output kms-test-service-account-key)
+  if [ ! -d .terraform ]; then
+    terraform init
+  fi
+  terraform output kms-test-service-account-key > "$kms_test_file"
 popd > /dev/null
-
-export GOOGLE_APPLICATION_CREDENTIALS="$DIR/kms_test.json"
-echo "$GOOGLE_APPLICATION_CREDENTIALS_JSON" > "$GOOGLE_APPLICATION_CREDENTIALS"
-export GOOGLE_APPLICATION_CREDENTIALS_JSON
 
 RED=1
 GREEN=2
@@ -42,6 +39,7 @@ EOF
 
 run_all_on_concourse() {
   "$DIR/remote-fly" ci/run-tests.yml
+  rm "$kms_test_file"
 }
 
 while getopts "ah" OPTION; do
@@ -63,4 +61,7 @@ done
 
 shift $((OPTIND-1))
 
+export GOOGLE_APPLICATION_CREDENTIALS="$kms_test_file"
 ginkgo -mod vendor -randomizeAllSpecs -randomizeSuites -race -keepGoing -r $@
+
+rm "$kms_test_file"

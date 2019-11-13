@@ -9,11 +9,12 @@ platform: linux
 
 inputs:
 - name: dependachore
+- name: service-account-json
 
 params:
   API_KEY:
   PROJECT_ID:
-  GOOGLE_APPLICATION_CREDENTIALS_JSON:
+  GOOGLE_APPLICATION_CREDENTIALS: service-account-json/kms-test.json
 
 run:
   path: dependachore/ci/run-tests.sh
