@@ -1,7 +1,7 @@
 package kms_test
 
 import (
-	"dependachore/kms"
+	"github.com/masters-of-cats/dependachore/kms"
 	"math/rand"
 
 	. "github.com/onsi/ginkgo"

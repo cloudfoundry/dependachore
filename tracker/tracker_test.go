@@ -1,7 +1,7 @@
 package tracker_test
 
 import (
-	"dependachore/tracker"
+	"github.com/masters-of-cats/dependachore/tracker"
 	"os"
 	"strconv"
 

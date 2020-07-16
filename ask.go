@@ -1,11 +1,11 @@
 package dependachore
 
 import (
-	"dependachore/dependachore"
-	"dependachore/kms"
-	"dependachore/tracker"
 	"encoding/base64"
 	"fmt"
+	"github.com/masters-of-cats/dependachore/dependachore"
+	"github.com/masters-of-cats/dependachore/kms"
+	"github.com/masters-of-cats/dependachore/tracker"
 	"net/http"
 
 	"os"

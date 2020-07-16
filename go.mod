@@ -1,4 +1,4 @@
-module dependachore
+module github.com/masters-of-cats/dependachore
 
 go 1.13
 

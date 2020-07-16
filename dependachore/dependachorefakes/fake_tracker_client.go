@@ -2,9 +2,10 @@
 package dependachorefakes
 
 import (
-	"dependachore/dependachore"
-	"dependachore/tracker"
 	"sync"
+
+	"github.com/masters-of-cats/dependachore/dependachore"
+	"github.com/masters-of-cats/dependachore/tracker"
 )
 
 type FakeTrackerClient struct {

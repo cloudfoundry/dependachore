@@ -1,7 +1,7 @@
 package dependachore
 
 import (
-	"dependachore/tracker"
+	"github.com/masters-of-cats/dependachore/tracker"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"

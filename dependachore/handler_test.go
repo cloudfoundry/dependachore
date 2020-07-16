@@ -1,12 +1,13 @@
 package dependachore_test
 
 import (
-	"dependachore/dependachore"
-	"dependachore/dependachore/dependachorefakes"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"strings"
+
+	"github.com/masters-of-cats/dependachore/dependachore"
+	"github.com/masters-of-cats/dependachore/dependachore/dependachorefakes"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
