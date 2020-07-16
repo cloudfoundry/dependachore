@@ -2,10 +2,10 @@
 
 set -eu
 
-echo "$GCP_SERVICE_ACCOUNT_JSON" > ./key
+echo "$GCP_SERVICE_ACCOUNT_JSON" >./key
 gcloud auth activate-service-account --key-file ./key
 
-echo -n "$API_KEY" > api-key.clear
+echo -n "$API_KEY" >api-key.clear
 
 gcloud kms encrypt \
   --location "$ENC_LOCATION" \
@@ -20,7 +20,7 @@ rm api-key.enc api-key.clear
 
 cd dependachore
 gcloud functions deploy AskDependachore \
-  --runtime go111 \
+  --runtime go113 \
   --memory 128M \
   --trigger-http \
   --project cf-garden-core \
