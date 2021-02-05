@@ -1,13 +1,12 @@
 package dependachore
 
 import (
+	"github.com/masters-of-cats/dependachore/tracker"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
 	"strings"
-
-	"github.com/masters-of-cats/dependachore/tracker"
 )
 
 type TrackerActivity struct {
@@ -22,7 +21,6 @@ type Change struct {
 }
 
 //go:generate counterfeiter . TrackerClient
-
 type TrackerClient interface {
 	Get(storyID int) (tracker.Story, error)
 	MoveAndChorify(storyID, afterStoryID int) error
@@ -58,7 +56,6 @@ func (h Handler) Handle(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if storyID, isDependabotActivity := extractStoryIDFromDependabotActivity(activity); isDependabotActivity {
-		log("chorifying story %s", storyID)
 		err = h.trackerClient.MoveAndChorify(storyID, h.releaseMarkerID)
 		if err != nil {
 			writeError(w, http.StatusInternalServerError, "failed to move/chorify story: %v\n", err)
@@ -71,25 +68,18 @@ func writeError(w http.ResponseWriter, status int, msg string, subs ...interface
 	fmt.Printf(msg, subs...)
 }
 
-func log(msg string, subs ...interface{}) {
-	fmt.Printf(msg+"\n", subs...)
-}
-
 func extractStoryIDFromDependabotActivity(activity TrackerActivity) (int, bool) {
 	if activity.Kind != "story_create_activity" {
-		log("ignoring activity with kind %s", activity.Kind)
 		return 0, false
 	}
 
 	for _, change := range activity.Changes {
 		if change.Kind != "story" {
-			log("ignoring change with kind %s", change.Kind)
 			continue
 		}
 		if strings.Contains(change.NewValues.Description, "@dependabot-preview[bot]") {
 			return change.NewValues.ID, true
 		}
-		log("description of the change does not match the dependabot pattern: %s", change.NewValues.Description)
 	}
 
 	return 0, false
